@@ -9,6 +9,10 @@ gem 'turbolinks', '5.2.1'  #Realtime apps
 gem 'jbuilder',   '2.10.0' #Gerneriše JSON
 gem 'bootsnap',   '1.4.6', require: false
 
+group :production do
+  gem 'pg', '1.2.3'
+end
+
 group :development, :test do
   gem 'sqlite3', '1.4.2'   #Mala baza za interni razvoj
   gem 'byebug',  '11.1.3', platforms: [:mri, :mingw, :x64_mingw]  #Debagovanje
