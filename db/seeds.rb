@@ -7,14 +7,42 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Create a main sample user.
-User.create!(name:  "Luka Petrovic",
+worker = User.create(name:  "Zaposleni",
+             email: "zaposleni@firma.rs",
+             password:              "123456",
+             password_confirmation: "123456")
+
+admin = User.create(name:  "Luka Petrovic",
              email: "l@p.rs",
              password:              "123456",
              password_confirmation: "123456",
              admin: true)
 
+company = Company.create(name: "Code Dream")
+Company.create!(name: "ASW")
+Contact.create!(name: "Petar", surname: "Ratkovic", company: company)        
+
+project_status = ProjectStatus.create(name: "Active")
+ProjectStatus.create!(name: "Closed")
+
+project = Project.create(name: "Ruby on rails", user: admin, company: company, project_status: project_status)
+
+component = Component.create(name: "Frontend", project: project)
+Component.create!(name: "Backend", project: project)
+
+task_status_in_dev = TaskStatus.create(name: "In development")
+task_status_inactive = TaskStatus.create(name: "Inactive")
+
+task = Task.create(name: "Welcome screen", component: component, task_status: task_status_in_dev)
+Task.create!(name: "Users page", component: component, task_status: task_status_inactive)
+
+TaskLog.create!(title: "Started working", content: "A long description of the work I have done", task: task, user: worker)
+
+Worker.create!(user: worker, component: component)
+Worker.create!(user: admin, component: component)
+
 # Generate a bunch of additional users.
-99.times do |n|
+25.times do |n|
   name  = Faker::Name.name
   email = "test-#{n+1}@test.com"
   password = "testtest"

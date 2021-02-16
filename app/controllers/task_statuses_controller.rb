@@ -1,5 +1,10 @@
 class TaskStatusesController < ApplicationController
   before_action :set_task_status, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user,     only: [:index, :show, :edit, :update, :destroy]
+  
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+  end
 
   # GET /task_statuses
   # GET /task_statuses.json
