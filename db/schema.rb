@@ -10,7 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_14_115043) do
+ActiveRecord::Schema.define(version: 2021_02_16_030806) do
+
+  create_table "companies", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "components", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "project_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.text "name"
+    t.text "surname"
+    t.integer "company_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "project_statuses", force: :cascade do |t|
+    t.text "name"
+    t.integer "project_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.text "name"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "company_id"
+    t.integer "project_status_id"
+  end
+
+  create_table "task_logs", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "user_id"
+    t.text "title"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_statuses", force: :cascade do |t|
+    t.text "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer "component_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "task_status_id"
+    t.text "name"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -20,6 +80,13 @@ ActiveRecord::Schema.define(version: 2021_02_14_115043) do
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+  end
+
+  create_table "workers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "component_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

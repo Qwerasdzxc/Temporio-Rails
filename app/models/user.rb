@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  has_many :workers, dependent: :destroy
+  has_many :components, through: :workers
+  has_many :projects
+  has_many :task_logs
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_secure_password

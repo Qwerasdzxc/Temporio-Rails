@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @task.name %>
+
+  <strong>Component:</strong>
+  <%= @task.component_id %>
+
+  <strong>Task status:</strong>
+  <%= @task.task_status_id %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
