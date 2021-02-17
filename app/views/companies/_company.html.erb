@@ -1,0 +1,10 @@
+<li>
+    <%= company.name %>
+    <%= link_to 'Show', company %>
+    <% if current_user.admin?%>
+        <%= link_to 'Edit', edit_company_path(company) %>
+        <%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+</li>
+<br>
+

@@ -1,0 +1,14 @@
+<li>
+    <ul>
+        <li>Name: <%= task.name %></li>
+        <li>Component: <%= task.component.name %></li>
+        <li>Task status: <%= task.task_status.name %></li>
+        <li><%= link_to 'Show', task %>
+        <% if current_user.admin?%>
+            <%= link_to 'Edit', edit_task_path(task) %>
+            <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        </li>
+    </ul>
+</li>
+<br>

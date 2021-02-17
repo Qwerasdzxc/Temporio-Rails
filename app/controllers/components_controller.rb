@@ -1,6 +1,10 @@
 class ComponentsController < ApplicationController
   before_action :set_component, only: [:show, :edit, :update, :destroy]
-
+  before_action :admin_user,     only: [:index, :edit, :update, :destroy]
+  
+  def admin_user
+    redirect_to(root_url) unless current_user != nil && current_user.admin?
+  end
   # GET /components
   # GET /components.json
   def index
@@ -28,6 +32,7 @@ class ComponentsController < ApplicationController
 
     respond_to do |format|
       if @component.save
+        flash[:success] = "Component created"
         format.html { redirect_to @component, notice: 'Component was successfully created.' }
         format.json { render :show, status: :created, location: @component }
       else
@@ -42,6 +47,7 @@ class ComponentsController < ApplicationController
   def update
     respond_to do |format|
       if @component.update(component_params)
+        flash[:success] = "Component updated"
         format.html { redirect_to @component, notice: 'Component was successfully updated.' }
         format.json { render :show, status: :ok, location: @component }
       else
@@ -56,6 +62,7 @@ class ComponentsController < ApplicationController
   def destroy
     @component.destroy
     respond_to do |format|
+      flash[:success] = "Company deleted"
       format.html { redirect_to components_url, notice: 'Component was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -69,6 +76,6 @@ class ComponentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def component_params
-      params.require(:component).permit(:name)
+      params.require(:component).permit(:name, :project_id)
     end
 end

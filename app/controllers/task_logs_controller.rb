@@ -1,6 +1,10 @@
 class TaskLogsController < ApplicationController
   before_action :set_task_log, only: [:show, :edit, :update, :destroy]
-
+  before_action :admin_user,     only: [:index, :edit, :update, :destroy]
+  
+  def admin_user
+    redirect_to(root_url) unless current_user != nil && current_user.admin?
+  end
   # GET /task_logs
   # GET /task_logs.json
   def index
@@ -28,6 +32,7 @@ class TaskLogsController < ApplicationController
 
     respond_to do |format|
       if @task_log.save
+        flash[:success] = "Task log created"
         format.html { redirect_to @task_log, notice: 'Task log was successfully created.' }
         format.json { render :show, status: :created, location: @task_log }
       else
@@ -42,6 +47,7 @@ class TaskLogsController < ApplicationController
   def update
     respond_to do |format|
       if @task_log.update(task_log_params)
+        flash[:success] = "Task log updated"
         format.html { redirect_to @task_log, notice: 'Task log was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_log }
       else
@@ -56,6 +62,7 @@ class TaskLogsController < ApplicationController
   def destroy
     @task_log.destroy
     respond_to do |format|
+      flash[:success] = "Task log deleted"
       format.html { redirect_to task_logs_url, notice: 'Task log was successfully destroyed.' }
       format.json { head :no_content }
     end

@@ -1,0 +1,14 @@
+<li>
+    <ul>
+        <li>Name: <%= project.name %></li>
+        <li>Company: <%= project.company.name %></li>
+        <li>Project status: <%= project.project_status.name %></li>
+        <li><%= link_to 'Show', project %>
+        <% if current_user.admin?%>
+            <%= link_to 'Edit', edit_project_path(project) %>
+            <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        </li>
+    </ul>
+</li>
+<br>

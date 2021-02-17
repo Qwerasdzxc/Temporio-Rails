@@ -5,5 +5,22 @@
   <%= @company.name %>
 </p>
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
+<h1>Projects</h1>
+
+<ul>
+  <%= render @company.projects %>
+</ul>
+
+<br>
+
+<h1>Contacts</h1>
+
+<ul>
+  <%= render @company.contacts %>
+</ul>
+
+<% if current_user.admin?%>
+  <%= link_to 'Edit', edit_company_path(@company) %>
+  <%= link_to 'New Project', new_project_path %>
+<% end %>
 <%= link_to 'Back', companies_path %>

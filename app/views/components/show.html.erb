@@ -5,8 +5,18 @@
   <%= @component.name %>
 
   <strong>Project:</strong>
-  <%= @component.project_id %>
+  <%= @component.project.name %>
 </p>
 
-<%= link_to 'Edit', edit_component_path(@component) %> |
-<%= link_to 'Back', components_path %>
+<h1>Tasks</h1>
+
+<ul>
+  <%= render @component.tasks %>
+</ul>
+
+<% if current_user.admin?%>
+  <%= link_to 'Edit', edit_component_path(@component) %>
+  <%= link_to 'New Task', new_task_path %>
+<% end %>
+
+<%= link_to 'Back', @component.project %>

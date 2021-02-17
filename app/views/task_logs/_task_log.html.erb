@@ -1,0 +1,15 @@
+<li>
+    <ul>
+        <li>Title: <%= task_log.title %></li>
+        <li>Content: <%= task_log.content %></li>
+        <li>Author: <%= task_log.user.name %></li>
+        <li>Task: <%= task_log.task.name %></li>
+        <% if current_user.admin?%>
+            <li><%= link_to 'Show', task_log %>
+            <%= link_to 'Edit', edit_task_log_path(task_log) %>
+            <%= link_to 'Destroy', task_log, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        </li>
+    </ul>
+</li>
+<br>

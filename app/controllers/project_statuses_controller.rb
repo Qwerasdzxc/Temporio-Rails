@@ -3,7 +3,7 @@ class ProjectStatusesController < ApplicationController
   before_action :admin_user,     only: [:index, :show, :edit, :update, :destroy]
   
   def admin_user
-    redirect_to(root_url) unless current_user.admin?
+    redirect_to(root_url) unless current_user != nil && current_user.admin?
   end
   
   # GET /project_statuses

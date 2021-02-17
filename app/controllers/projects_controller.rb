@@ -1,5 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user,     only: [:index, :edit, :update, :destroy]
+  
+  def admin_user
+    redirect_to(root_url) unless current_user != nil && current_user.admin?
+  end
 
   # GET /projects
   # GET /projects.json
@@ -28,6 +33,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        flash[:success] = "Project created"
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
@@ -42,6 +48,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        flash[:success] = "Project updated"
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -56,6 +63,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
+      flash[:success] = "Project deleted"
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -69,6 +77,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:name, :user_id)
+      params.require(:project).permit(:name, :user_id, :company_id, :project_status_id)
     end
 end

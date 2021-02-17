@@ -1,6 +1,10 @@
 class WorkersController < ApplicationController
   before_action :set_worker, only: [:show, :edit, :update, :destroy]
-
+  before_action :admin_user,     only: [:index, :edit, :update, :destroy]
+  
+  def admin_user
+    redirect_to(root_url) unless current_user != nil && current_user.admin?
+  end
   # GET /workers
   # GET /workers.json
   def index
@@ -28,6 +32,7 @@ class WorkersController < ApplicationController
 
     respond_to do |format|
       if @worker.save
+        flash[:success] = "Worker created"
         format.html { redirect_to @worker, notice: 'Worker was successfully created.' }
         format.json { render :show, status: :created, location: @worker }
       else
@@ -42,6 +47,7 @@ class WorkersController < ApplicationController
   def update
     respond_to do |format|
       if @worker.update(worker_params)
+        flash[:success] = "Worker updated"
         format.html { redirect_to @worker, notice: 'Worker was successfully updated.' }
         format.json { render :show, status: :ok, location: @worker }
       else
@@ -56,6 +62,7 @@ class WorkersController < ApplicationController
   def destroy
     @worker.destroy
     respond_to do |format|
+      flash[:success] = "Worker deleted"
       format.html { redirect_to workers_url, notice: 'Worker was successfully destroyed.' }
       format.json { head :no_content }
     end

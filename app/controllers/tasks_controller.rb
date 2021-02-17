@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  before_action :admin_user,     only: [:index, :edit, :update, :destroy]
+  
+  def admin_user
+    redirect_to(root_url) unless current_user != nil && current_user.admin?
+  end
   # GET /tasks
   # GET /tasks.json
   def index
@@ -28,6 +32,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        flash[:success] = "Task created"
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
@@ -42,6 +47,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        flash[:success] = "Task updated"
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -56,6 +62,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
+      flash[:success] = "Task deleted"
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
@@ -69,6 +76,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:component_id)
+      params.require(:task).permit(:name, :component_id, :task_status_id)
     end
 end

@@ -6,19 +6,28 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @project.user_id %>
+  <strong>Owner:</strong>
+  <%= @project.user.name %>
 </p>
 
 <p>
   <strong>Company:</strong>
-  <%= @project.company_id %>
+  <%= @project.company.name %>
 </p>
 
 <p>
   <strong>Project status:</strong>
-  <%= @project.project_status_id %>
+  <%= @project.project_status.name %>
 </p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<h1>Components</h1>
+
+<ul>
+  <%= render @project.components %>
+</ul>
+
+<% if current_user.admin?%>
+  <%= link_to 'Edit', edit_project_path(@project) %>
+  <%= link_to 'New Component', new_component_path %>
+<% end %>
+<%= link_to 'Back', @project.company %>

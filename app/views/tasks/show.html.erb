@@ -5,11 +5,22 @@
   <%= @task.name %>
 
   <strong>Component:</strong>
-  <%= @task.component_id %>
+  <%= @task.component.name %>
 
   <strong>Task status:</strong>
-  <%= @task.task_status_id %>
+  <%= @task.task_status.name %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<h1>Task logs</h1>
+
+<ul>
+  <%= render @task.task_logs %>
+</ul>
+
+<%= link_to 'New Task Log', new_task_log_path %>
+
+<% if current_user.admin?%>
+  <%= link_to 'Edit', edit_task_path(@task) %>
+<% end %>
+
+<%= link_to 'Back', @task.component %>
