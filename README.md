@@ -1,24 +1,28 @@
-# README
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Temporio - Rails
+============
 
-Things you may want to cover:
+Ruby on Rails web application for project management.
 
-* Ruby version
+---
 
-* System dependencies
+## Features
+- User and administrator accounts
+- Seeded database
+- Login, Registration, Remember me flow
+- Bootstrap design
+- 10+ database models with ManyToMany relations
+- Input validation
+- Partials for rendering
+- Flash messages
 
-* Configuration
+---
 
-* Database creation
+## Setup
+Clone this repo and refer to the official Rails guides: https://guides.rubyonrails.org/index.html
 
-* Database initialization
+---
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Usage
+Start the web server and enjoy the application!
