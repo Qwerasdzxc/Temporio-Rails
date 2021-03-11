@@ -5,6 +5,8 @@ Temporio - Rails
 
 Ruby on Rails web application for project management.
 
+Demo: https://temporio-rails.herokuapp.com
+
 ---
 
 ## Features
